@@ -421,7 +421,7 @@
         <div class="rundown-timeline" id="rundown-wrapper"></div>
     </section>
 
-    <section style="text-align: center;">
+    <section id="youtube-section" style="text-align: center;">
         <div class="animate-up">
             <span class="motto-tag">VIRTUAL BROADCAST</span>
             <h2 class="shine-text">Saksikan Secara Virtual</h2>
@@ -498,14 +498,46 @@
             const data = await response.json();
             
             if (data.status === "success") {
-                applyConfig(data.config);
-                applyRundown(data.rundown);
-                
-                // Hilangkan layar loading utama secara halus
-                const loadingScreen = document.getElementById("loading-screen");
-                loadingScreen.style.opacity = "0";
-                setTimeout(() => { loadingScreen.style.display = "none"; }, 600);
-            } else {
+
+    // Isi semua data dari Google Sheet
+    applyConfig(data.config);
+
+    // ==========================================
+    // TAMPILKAN / SEMBUNYIKAN FITUR
+    // ==========================================
+
+    // Live Streaming YouTube
+    const youtubeSection = document.getElementById("youtube-section");
+    if (
+        youtubeSection &&
+        data.config.tampilkanLinkYtStreaming &&
+        data.config.tampilkanLinkYtStreaming.toUpperCase() === "TIDAK"
+    ) {
+        youtubeSection.style.display = "none";
+    }
+
+    // Tombol Dokumentasi
+    const dokumentasiSection = document.getElementById("dokumentasi-section");
+    if (
+        dokumentasiSection &&
+        data.config.tampilkanTombolDokumentasi &&
+        data.config.tampilkanTombolDokumentasi.toUpperCase() === "TIDAK"
+    ) {
+        dokumentasiSection.style.display = "none";
+    }
+
+    // Isi Rundown
+    applyRundown(data.rundown);
+
+    // Hilangkan Loading Screen
+    const loadingScreen = document.getElementById("loading-screen");
+    loadingScreen.style.opacity = "0";
+
+    setTimeout(() => {
+        loadingScreen.style.display = "none";
+    }, 600);
+
+} else {
                 document.getElementById("loading-screen").innerHTML = `
                     <div style="text-align:center; padding: 20px;">
                         <i class="fa-solid fa-circle-exclamation" style="font-size:40px; color:#ef4444;"></i>
