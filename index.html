@@ -466,19 +466,19 @@
         </div>
     </section>
 
-    <section>
-        <div class="animate-up">
-            <span class="motto-tag">KETENTUAN EVENT</span>
-            <h2 class="shine-text">Protokol Pendamping</h2>
-            <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 12px;">
-                <div style="background: var(--earth-beige); padding: 16px; border-radius: 12px; border-left: 4px solid var(--navy); box-shadow: 0 4px 6px rgba(0,0,0,0.01);">
-                    <h4 style="font-size: 14px; color: var(--navy); font-weight: 600;"><i class="fa-solid fa-user-tie"></i> Pakaian Orang Tua</h4>
-                    <p style="font-size: 13px; margin-top: 4px; color: var(--slate); line-height: 1.5;" id="protokol-pakaian">
-                    </p>
-                </div>
+    <section id="ketentuan-section">
+    <div class="animate-up">
+        <span class="motto-tag">KETENTUAN EVENT</span>
+        <h2 class="shine-text">Protokol Pendamping</h2>
+        <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 12px;">
+            <div style="background: var(--earth-beige); padding: 16px; border-radius: 12px; border-left: 4px solid var(--navy); box-shadow: 0 4px 6px rgba(0,0,0,0.01);">
+                <h4 style="font-size: 14px; color: var(--navy); font-weight: 600;"><i class="fa-solid fa-user-tie"></i> Pakaian Orang Tua</h4>
+                <p style="font-size: 13px; margin-top: 4px; color: var(--slate); line-height: 1.5;" id="protokol-pakaian">
+                </p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="dokumentasi-section" style="background-color: var(--earth-beige);">
         <div class="animate-up">
@@ -556,6 +556,12 @@
                 const dokumentasiSection = document.getElementById("dokumentasi-section");
                 if (dokumentasiSection && data.config.tampilkanTombolDokumentasi && data.config.tampilkanTombolDokumentasi.toUpperCase() === "TIDAK") {
                     dokumentasiSection.style.display = "none";
+                }
+
+                // [TAMBAHAN BARU]: Ketentuan Event
+                const ketentuanSection = document.getElementById("ketentuan-section");
+                if (ketentuanSection && data.config.tampilkanKetentuanEvent && data.config.tampilkanKetentuanEvent.toUpperCase() === "TIDAK") {
+                    ketentuanSection.style.display = "none";
                 }
 
                 // Isi Rundown Acara
