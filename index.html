@@ -157,7 +157,7 @@
         /* ========================================== */
         /* 4. ANIMASI TOMBOL LINGKARAN (RIPPLE EFFECT)*/
         /* ========================================== */
-        .gate-button-wrapper { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: -300px; }
+        .gate-button-wrapper { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 20px; }
 
         .btn-enter-gate {
             position: relative;
@@ -171,6 +171,7 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(11, 49, 91, 0.5);
             pointer-events: none;
+            transform: translateY(-15px); /* <--- TAMBAHKAN BARIS INI (Ubah nilainya misal -10px, -20px) */
         }
         
         .btn-enter-gate i { font-size: 20px; margin-left: 4px; }
