@@ -276,36 +276,43 @@
     </div>
 
     <div id="welcome-gate" class="full-screen-cover" onclick="bukaUndanganDigital()">
-    <video id="bg-video" class="bg-video" playsinline autoplay muted loop>
-        <source id="video-source" src="" type="video/mp4">
-    </video>
-    <div class="video-overlay"></div>
-    
-    <div class="cover-content animate-up">
-        <img id="logo-top" src="" style="width: 75px; height: auto; display: block; margin: 0 auto 12px; filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.4));" alt="Logo">
+        <video id="bg-video" class="bg-video" playsinline autoplay muted loop>
+            <source id="video-source" src="" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
         
-        <p id="sub-judul-1" style="color: #ffffff; font-size: 16px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);"></p>
-        <p id="sub-judul-2" style="color: #ffffff; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);"></p>
-        
-        <h1 id="judul-opening" class="shine-text-cover" style="font-size: 26px; line-height: 1.2;"></h1>
-    </div>
-
-    <div class="cover-content animate-up delay-100" style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; gap: 12px; width: 100%;">
-        
-        <div style="background: rgba(0,0,0,0.3); padding: 14px 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(4px); width: 100%; max-width: 320px;">
-            <p style="color: #cbd5e1; font-size: 9.5px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px;">Kepada Yth. Bapak/Ibu</p>
-            <h3 style="color: white; font-size: 15px; font-family: 'Plus Jakarta Sans', sans-serif;" id="tamu-nama-cover">Orang Tua / Wali Murid</h3>
+        <div class="cover-content animate-up">
+            <img id="logo-top" src="" style="width: 75px; height: auto; display: block; margin: 0 auto 12px; filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.4));" alt="Logo">
+            
+            <p id="sub-judul-1" style="color: #ffffff; font-size: 16px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);"></p>
+            <p id="sub-judul-2" style="color: #ffffff; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);"></p>
+            
+            <h1 id="judul-opening" class="shine-text-cover" style="font-size: 26px; line-height: 1.2;"></h1>
         </div>
 
-        <div class="gate-text" style="font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255, 255, 255, 0.9); font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.6); margin-top: 2px;">
-            Ketuk Di Mana Saja Untuk Masuk
+        <div class="cover-content animate-up delay-100" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; width: 100%; margin: auto 0;">
+            
+            <div style="background: rgba(0,0,0,0.3); padding: 14px 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(4px); width: 100%; max-width: 320px;">
+                <p style="color: #cbd5e1; font-size: 9.5px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px;">Kepada Yth. Bapak/Ibu</p>
+                <h3 style="color: white; font-size: 15px; font-family: 'Plus Jakarta Sans', sans-serif;" id="tamu-nama-cover">Orang Tua / Wali Murid</h3>
+            </div>
+
+            <div class="gate-text" style="font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255, 255, 255, 0.9); font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.6); margin-top: 2px;">
+                Ketuk Di Mana Saja Untuk Masuk
+            </div>
+
         </div>
 
-    </div>
-</div>
+        <div style="height: 20px; visibility: hidden;"></div>
 
-</div>
+    </div> </div> ```
 
+---
+
+### ✨ Apa Saja Yang Diperbaiki?
+* **Penyelaras Tengah Menggunakan `margin: auto 0`:** Menggantikan `flex-grow: 1` agar posisi elemen tengah tetap seimbang tanpa merusak tinggi elemen.
+* **Elemen Penyeimbang Bawah (`(C)`):** Menambahkan elemen penyeimbang transparan di paling bawah agar Flexbox membagi ruang atas, tengah, dan bawah secara sempurna.
+* **Penutupan Tag Aman:** Tag penutup `</div>` untuk `#welcome-gate` dan `.phone-wrapper` telah dipastikan rapi sehingga isi halaman berikutnya aman dari *error*.
   
     <section style="text-align: center; border-radius: 24px 24px 0 0; padding-top: 55px; background-image: url('https://www.transparenttextures.com/patterns/watercolor-paper.png');">
         <div class="animate-up">
