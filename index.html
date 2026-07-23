@@ -120,79 +120,81 @@
         @keyframes shine { to { background-position: 200% center; } }
 
         /* ========================================== */
-/* 3. COVER COMPONENT & VIDEO BACKGROUND      */
-/* ========================================== */
-.full-screen-cover {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%; z-index: 999;
-    display: flex; 
-    flex-direction: column; 
-    justify-content: space-between; /* Menyebarkan elemen Atas, Tengah, dan Bawah */
-    align-items: center;
-    padding: 50px 24px 90px 24px; /* <--- 90px di bawah ini yang MENDORONG tombol naik lebih tinggi */
-    text-align: center; 
-    color: white;
-    transition: opacity 1s ease, transform 1s ease;
-    background: radial-gradient(circle at center, var(--navy) 0%, var(--navy-dark) 100%); 
-    overflow: hidden;
-    cursor: pointer;
-}
+        /* 3. COVER COMPONENT & VIDEO BACKGROUND      */
+        /* ========================================== */
+        .full-screen-cover {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%; z-index: 999;
+            display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+            padding: 50px 24px 40px; text-align: center; color: white;
+            transition: opacity 1s ease, transform 1s ease;
+            /* Latar belakang Navy Athalia yang Elegan */
+            background: radial-gradient(circle at center, var(--navy) 0%, var(--navy-dark) 100%); 
+            overflow: hidden;
+            cursor: pointer;
+        }
 
-/* ========================================== */
-/* 4. ANIMASI TOMBOL LINGKARAN (RIPPLE EFFECT)*/
-/* ========================================== */
-.gate-button-wrapper { 
-    position: relative; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
-    margin-top: 0;
-    transform: none !important; /* Hapus transform minus agar tidak merusak layout */
-}
+        .bg-video {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; 
+            z-index: 1; 
+            opacity: 0.55; /* Ditingkatkan agar video lebih jelas / tidak terlalu gelap */
+            pointer-events: none;
+        }
 
-.btn-enter-gate {
-    position: relative;
-    width: 65px; height: 65px;
-    background: linear-gradient(135deg, rgba(11, 49, 91, 0.95) 0%, rgba(0, 123, 167, 0.85) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    z-index: 10; color: var(--white);
-    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(11, 49, 91, 0.5);
-    pointer-events: none;
-}
+        .video-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* Overlay transparan beraksen Navy agar kontras teks tetap bagus */
+            background: linear-gradient(180deg, rgba(11, 49, 91, 0.2) 0%, rgba(5, 28, 54, 0.5) 100%); 
+            z-index: 2; 
+            pointer-events: none;
+        }
 
-.btn-enter-gate i { font-size: 20px; margin-left: 4px; }
+        .cover-content { position: relative; z-index: 3; width: 100%; pointer-events: none; }
 
-.ripple-circle {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    animation: ripple-anim 2.5s infinite cubic-bezier(0.1, 0.6, 0.4, 1);
-    pointer-events: none;
-}
+        /* ========================================== */
+        /* 4. ANIMASI TOMBOL LINGKARAN (RIPPLE EFFECT)*/
+        /* ========================================== */
+        .gate-button-wrapper { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 20px; }
 
-.ripple-1 { animation-delay: 0s; }
-.ripple-2 { animation-delay: 0.8s; }
+        .btn-enter-gate {
+            position: relative;
+            width: 65px; height: 65px;
+            background: linear-gradient(135deg, rgba(11, 49, 91, 0.95) 0%, rgba(0, 123, 167, 0.85) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10; color: var(--white);
+            backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(11, 49, 91, 0.5);
+            pointer-events: none;
+        }
+        
+        .btn-enter-gate i { font-size: 20px; margin-left: 4px; }
 
-@keyframes ripple-anim {
-    0% { width: 65px; height: 65px; opacity: 1; }
-    100% { width: 140px; height: 140px; opacity: 0; }
-}
+        .ripple-circle {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            animation: ripple-anim 2.5s infinite cubic-bezier(0.1, 0.6, 0.4, 1);
+            pointer-events: none;
+        }
 
-.gate-text { 
-    margin-top: 15px; 
-    font-size: 11px; 
-    letter-spacing: 4px; 
-    text-transform: uppercase; 
-    color: rgba(255, 255, 255, 0.85); 
-    font-weight: 500; 
-}
+        .ripple-1 { animation-delay: 0s; }
+        .ripple-2 { animation-delay: 0.8s; }
+
+        @keyframes ripple-anim {
+            0% { width: 65px; height: 65px; opacity: 1; }
+            100% { width: 140px; height: 140px; opacity: 0; }
+        }
+
+        .gate-text { margin-top: 25px; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: rgba(255, 255, 255, 0.85); font-weight: 500; }
+
         
         /* ========================================== */
         /* 5. ANIMASI TRANSISI ELEGAN                 */
