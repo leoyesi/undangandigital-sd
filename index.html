@@ -550,38 +550,39 @@
     const eventId = urlParams.get('event') || 'PSB-SD-2026';
 
     // =========================================================================
-    // 2. FETCH DATA DARI GOOGLE SHEET (GAS API)
-    // =========================================================================
-    async function loadDigitalInvitation() {
-        try {
-            const response = await fetch(`${WEB_APP_URL}?event=${eventId}`);
-            const data = await response.json();
+// 2. FETCH DATA DARI GOOGLE SHEET (GAS API)
+// =========================================================================
+async function loadDigitalInvitation() {
+    try {
+        const response = await fetch(`${WEB_APP_URL}?event=${eventId}`);
+        const data = await response.json();
+        
+        if (data.status === "success") {
+
+            // Isi semua data dari Google Sheet
+            applyConfig(data.config);
+
+            // --- TAMPILKAN / SEMBUNYIKAN FITUR ---
             
-            if (data.status === "success") {
+            // 1. Live Streaming YouTube
+            const youtubeSection = document.getElementById("youtube-section");
+            if (youtubeSection && data.config.tampilkanLinkYtStreaming && data.config.tampilkanLinkYtStreaming.toUpperCase() === "TIDAK") {
+                youtubeSection.style.display = "none";
+            }
 
-                // Isi semua data dari Google Sheet
-                applyConfig(data.config);
+            // 2. Tombol Dokumentasi
+            const dokumentasiSection = document.getElementById("dokumentasi-section");
+            if (dokumentasiSection && data.config.tampilkanTombolDokumentasi && data.config.tampilkanTombolDokumentasi.toUpperCase() === "TIDAK") {
+                dokumentasiSection.style.display = "none";
+            }
 
-                // --- TAMPILKAN / SEMBUNYIKAN FITUR ---
-                // Live Streaming YouTube
-                const youtubeSection = document.getElementById("youtube-section");
-                if (youtubeSection && data.config.tampilkanLinkYtStreaming && data.config.tampilkanLinkYtStreaming.toUpperCase() === "TIDAK") {
-                    youtubeSection.style.display = "none";
-                }
+            // 3. Ketentuan Event
+            const ketentuanSection = document.getElementById("ketentuan-section");
+            if (ketentuanSection && data.config.tampilkanKetentuanEvent && data.config.tampilkanKetentuanEvent.toUpperCase() === "TIDAK") {
+                ketentuanSection.style.display = "none";
+            }
 
-                // Tombol Dokumentasi
-                const dokumentasiSection = document.getElementById("dokumentasi-section");
-                if (dokumentasiSection && data.config.tampilkanTombolDokumentasi && data.config.tampilkanTombolDokumentasi.toUpperCase() === "TIDAK") {
-                    dokumentasiSection.style.display = "none";
-                }
-
-                // [TAMBAHAN BARU]: Ketentuan Event
-                const ketentuanSection = document.getElementById("ketentuan-section");
-                if (ketentuanSection && data.config.tampilkanKetentuanEvent && data.config.tampilkanKetentuanEvent.toUpperCase() === "TIDAK") {
-                    ketentuanSection.style.display = "none";
-                }
-
-                // [TAMBAHAN BARU]: Poster Acara Utama
+            // 4. Poster Acara Utama
             const posterSection = document.getElementById("poster-section");
             const posterImage = document.getElementById("poster-image");
             if (posterImage && data.config.posterUrl) {
@@ -595,94 +596,89 @@
                 }
             }
 
-// --- KONTROL SECTION RSVP ---
-const rsvpSection = document.getElementById("rsvp-section");
-if (rsvpSection) {
-    const statusRsvp = (data.config["Tampilkan RSVP"] || data.config.tampilkanRsvp || "YA").toString().toUpperCase();
-    if (statusRsvp === "TIDAK") {
-        rsvpSection.style.display = "none";
-    } else {
-        rsvpSection.style.display = "block";
-        
-        // Update Link RSVP
-        const link = data.config["Link RSVP"] || data.config.linkRsvp;
-        const rsvpLinkEl = document.getElementById("rsvp-link");
-        if (link && rsvpLinkEl) {
-            rsvpLinkEl.href = link;
-        }
-        
-        // Update Tenggat Waktu
-        const tenggat = data.config["Dateline RSVP"] || data.config["Deadline RSVP"] || data.config.datelineRsvp || data.config.deadlineRsvp;
-        const rsvpDeadlineEl = document.getElementById("rsvp-deadline");
-        if (tenggat && rsvpDeadlineEl) {
-            rsvpDeadlineEl.innerText = "🗓️ RSVP paling lambat " + tenggat;
-        }
-    }
-}
-                
-               // --- KONTROL SECTION MAP GOOGLE ---
-function setupMapSection(config) {
-    const mapSection = document.getElementById("map-section");
-    const mapLink = document.getElementById("map-link");
-
-    if (!mapSection || !config) return;
-
-    // Ambil variabel dari 'config' menggunakan nama camelCase
-    const rawStatus = config.tampilkanMap || "";
-    const rawLink = config.linkMap || "";
-
-    const statusMap = String(rawStatus).trim().toLowerCase();
-    const linkMap = String(rawLink).trim();
-
-    // Debugging di Console
-    console.log("🔍 Status Map (tampilkanMap):", statusMap, "| Link Map (linkMap):", linkMap);
-
-    // Evaluasi status "Ya" / "Tidak"
-    const isExplicitShow = statusMap === "ya" || statusMap === "y" || statusMap === "true";
-    const isExplicitHide = statusMap === "tidak" || statusMap === "t" || statusMap === "false" || linkMap.toLowerCase() === "tidak";
-    const hasValidLink = linkMap !== "" && linkMap !== "undefined" && linkMap !== "null" && linkMap.toLowerCase() !== "tidak";
-
-    // Penayangan
-    if (isExplicitShow || (hasValidLink && !isExplicitHide)) {
-        mapSection.style.display = "block"; // Tampilkan Section
-        if (mapLink && hasValidLink) {
-            mapLink.href = linkMap;
-        }
-    } else {
-        mapSection.style.display = "none"; // Sembunyikan Section
-    }
-}
-
-                // Isi Rundown Acara
-                applyRundown(data.rundown);
-
-                // Hilangkan Loading Screen
-                const loadingScreen = document.getElementById("loading-screen");
-                if (loadingScreen) {
-                    loadingScreen.style.opacity = "0";
-                    setTimeout(() => {
-                        loadingScreen.style.display = "none";
-                    }, 600);
+            // 5. KONTROL SECTION RSVP
+            const rsvpSection = document.getElementById("rsvp-section");
+            if (rsvpSection) {
+                const statusRsvp = (data.config["Tampilkan RSVP"] || data.config.tampilkanRsvp || "YA").toString().toUpperCase();
+                if (statusRsvp === "TIDAK") {
+                    rsvpSection.style.display = "none";
+                } else {
+                    rsvpSection.style.display = "block";
+                    
+                    // Update Link RSVP
+                    const link = data.config["Link RSVP"] || data.config.linkRsvp;
+                    const rsvpLinkEl = document.getElementById("rsvp-link");
+                    if (link && rsvpLinkEl) {
+                        rsvpLinkEl.href = link;
+                    }
+                    
+                    // Update Tenggat Waktu
+                    const tenggat = data.config["Dateline RSVP"] || data.config["Deadline RSVP"] || data.config.datelineRsvp || data.config.deadlineRsvp;
+                    const rsvpDeadlineEl = document.getElementById("rsvp-deadline");
+                    if (tenggat && rsvpDeadlineEl) {
+                        rsvpDeadlineEl.innerText = "🗓️ RSVP paling lambat " + tenggat;
+                    }
                 }
-
-            } else {
-                document.getElementById("loading-screen").innerHTML = `
-                    <div style="text-align:center; padding: 20px;">
-                        <i class="fa-solid fa-circle-exclamation" style="font-size:40px; color:#ef4444;"></i>
-                        <p style="margin-top:15px; font-weight:600; color:var(--navy);">ID Undangan / Event Tidak Ditemukan</p>
-                    </div>`;
             }
-        } catch (error) {
-            console.error("Error fetching spreadsheet:", error);
+            
+            // 6. KONTROL SECTION MAP GOOGLE (SUDAH DIPERBAIKI SANGAT RAPI)
+            const mapSection = document.getElementById("map-section");
+            const mapLink = document.getElementById("map-link");
+
+            if (mapSection && data.config) {
+                const rawStatus = data.config.tampilkanMap || data.config["Tampilkan Map"] || "";
+                const rawLink = data.config.linkMap || data.config["Link Map"] || "";
+
+                const statusMap = String(rawStatus).trim().toLowerCase();
+                const linkMap = String(rawLink).trim();
+
+                console.log("🔍 Status Map (tampilkanMap):", statusMap, "| Link Map (linkMap):", linkMap);
+
+                const isExplicitShow = statusMap === "ya" || statusMap === "y" || statusMap === "true";
+                const isExplicitHide = statusMap === "tidak" || statusMap === "t" || statusMap === "false" || linkMap.toLowerCase() === "tidak";
+                const hasValidLink = linkMap !== "" && linkMap !== "undefined" && linkMap !== "null" && linkMap.toLowerCase() !== "tidak";
+
+                if (isExplicitShow || (hasValidLink && !isExplicitHide)) {
+                    mapSection.style.display = "block";
+                    if (mapLink && hasValidLink) {
+                        mapLink.href = linkMap;
+                    }
+                } else {
+                    mapSection.style.display = "none";
+                }
+            }
+
+            // Isi Rundown Acara
+            applyRundown(data.rundown);
+
+            // Hilangkan Loading Screen
+            const loadingScreen = document.getElementById("loading-screen");
+            if (loadingScreen) {
+                loadingScreen.style.opacity = "0";
+                setTimeout(() => {
+                    loadingScreen.style.display = "none";
+                }, 600);
+            }
+
+        } else {
             document.getElementById("loading-screen").innerHTML = `
                 <div style="text-align:center; padding: 20px;">
-                    <i class="fa-solid fa-triangle-exclamation" style="font-size:40px; color:#f59e0b;"></i>
-                    <p style="margin-top:15px; font-weight:600; color:var(--navy);">Gagal Menghubungkan ke Database</p>
-                    <p style="font-size:12px; color:#64748b;">Pastikan URL Deployment Web App GAS sudah diisi dan diakses publik.</p>
+                    <i class="fa-solid fa-circle-exclamation" style="font-size:40px; color:#ef4444;"></i>
+                    <p style="margin-top:15px; font-weight:600; color:var(--navy);">ID Undangan / Event Tidak Ditemukan</p>
                 </div>`;
         }
+    } catch (error) {
+        console.error("Error fetching spreadsheet:", error);
+        document.getElementById("loading-screen").innerHTML = `
+            <div style="text-align:center; padding: 20px;">
+                <i class="fa-solid fa-triangle-exclamation" style="font-size:40px; color:#f59e0b;"></i>
+                <p style="margin-top:15px; font-weight:600; color:var(--navy);">Gagal Menghubungkan ke Database</p>
+                <p style="font-size:12px; color:#64748b;">Pastikan URL Deployment Web App GAS sudah diisi dan diakses publik.</p>
+            </div>`;
     }
+}
 
+    
     // =========================================================================
     // 3. TERAPKAN KONFIGURASI KE TAMPILAN HTML
     // =========================================================================
