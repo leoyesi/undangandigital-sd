@@ -619,35 +619,47 @@ if (rsvpSection) {
         }
     }
 }
-                // --- KONTROL TAYANG MAP SEKOLAH ---
-const mapSection = document.getElementById("map-section");
-const mapLink = document.getElementById("map-link");
+               // --- KONTROL MAP GOOGLE (VERSI ANTI-GAGAL) ---
+try {
+    const mapSection = document.getElementById("map-section");
+    const mapLink = document.getElementById("map-link");
 
-if (mapSection && typeof data !== "undefined") {
-    // 1. Ambil status tayang (kolom 'Tampilkan Map') & link (kolom 'Link Map')
-    const rawStatus = data["Tampilkan Map"] || data["tampilkanMap"] || "";
-    const rawLink = data["Link Map"] || data["linkMap"] || "";
+    if (mapSection && typeof data !== "undefined" && data) {
+        let linkVal = "";
+        let statusVal = "";
 
-    const statusMap = String(rawStatus).trim().toLowerCase();
-    const linkMap = String(rawLink).trim();
+        // Otomatis cari kolom 'Link Map' & 'Tampilkan Map' tanpa peduli spasi / huruf besar-kecil
+        Object.keys(data).forEach(key => {
+            const cleanKey = key.trim().toLowerCase();
+            if (cleanKey.includes("link") && cleanKey.includes("map")) {
+                linkVal = String(data[key]).trim();
+            }
+            if (cleanKey.includes("tampilkan") && cleanKey.includes("map")) {
+                statusVal = String(data[key]).trim().toLowerCase();
+            }
+        });
 
-    // 2. Evaluasi kondisi Ya / Tidak
-    const isYa = statusMap === "ya" || statusMap === "y" || statusMap === "true";
-    const isTidak = statusMap === "tidak" || statusMap === "t" || statusMap === "false" || linkMap.toLowerCase() === "tidak";
-    const hasValidLink = linkMap !== "" && linkMap.toLowerCase() !== "tidak" && linkMap !== "undefined";
+        console.log("🔍 Debug Map Auto-Detect -> Status:", statusVal, "| Link:", linkVal);
 
-    // 3. Logika Penayangan
-    // Tampil jika: Status = "Ya" ATAU (Link terisi & Status bukan "Tidak")
-    if (isYa || (hasValidLink && !isTidak)) {
-        mapSection.style.display = "block"; // Tampilkan kotak Map
+        const isExplicitShow = statusVal === "ya" || statusVal === "y" || statusVal === "true";
+        const isExplicitHide = statusVal === "tidak" || statusVal === "t" || statusVal === "false" || linkVal.toLowerCase() === "tidak";
+        const hasValidLink = linkVal !== "" && linkVal !== "undefined" && linkVal !== "null" && linkVal.toLowerCase() !== "tidak";
 
-        // Update link tombol jika ada URL valid di Sheet
-        if (mapLink && hasValidLink) {
-            mapLink.href = linkMap;
+        // Aturan Tampil
+        if (isExplicitShow || (hasValidLink && !isExplicitHide)) {
+            mapSection.style.display = "block"; // Tampilkan Section
+            if (mapLink && hasValidLink) {
+                mapLink.href = linkVal;
+            }
+        } else {
+            mapSection.style.display = "none"; // Sembunyikan Section
         }
-    } else {
-        mapSection.style.display = "none"; // Sembunyikan kotak Map
+    } else if (mapSection) {
+        // Fallback: Jika data Sheet belum terbaca, tampilkan dulu secara default
+        mapSection.style.display = "block";
     }
+} catch (err) {
+    console.error("⚠️ Terjadi kesalahan pada kontrol map:", err);
 }
 
                
