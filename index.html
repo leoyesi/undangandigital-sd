@@ -316,84 +316,80 @@
     </section>
 
     <section style="background-color: var(--earth-beige);">
-        <div class="animate-up">
-            <span class="motto-tag">SIMPAN TANGGAL</span>
-            <h2 class="shine-text">Waktu dan Tempat</h2>
+    <div class="animate-up">
+        <span class="motto-tag">SIMPAN TANGGAL</span>
+        <h2 class="shine-text">Waktu dan Tempat</h2>
+        
+        <div style="background: var(--white); padding: 20px; border-radius: 16px; margin-top: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+            <p style="font-weight: 600; color: var(--navy); font-size: 15.5px;">
+                <i class="fa-regular fa-calendar-check" style="color: var(--sage); margin-right: 8px;"></i>
+                <span id="event-date"></span>
+            </p>
+            <p style="margin-top: 4px; font-size: 14px; padding-left: 24px; color: var(--slate); font-weight: 500;" id="event-time"></p>
             
-            <div style="background: var(--white); padding: 20px; border-radius: 16px; margin-top: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
-                <p style="font-weight: 600; color: var(--navy); font-size: 15.5px;">
-                    <i class="fa-regular fa-calendar-check" style="color: var(--sage); margin-right: 8px;"></i>
-                    <span id="event-date"></span>
-                </p>
-                <p style="margin-top: 4px; font-size: 14px; padding-left: 24px; color: var(--slate); font-weight: 500;" id="event-time"></p>
-                
-                <p style="font-weight: 600; color: var(--navy); font-size: 15.5px; margin-top: 16px;">
-                    <i class="fa-solid fa-map-location-dot" style="color: var(--sage); margin-right: 8px;"></i>
-                    <span id="event-room"></span>
-                </p>
-                <p style="margin-top: 4px; font-size: 14px; padding-left: 24px; color: var(--slate);" id="event-building"></p>
-                <p style="font-size: 13px; padding-left: 24px; color: #64748b; font-style: italic; line-height: 1.4; margin-top: 2px;" id="event-address"></p>
-            </div>
-        </div>
-        
-        <div class="countdown-container animate-up delay-100">
-            <div class="countdown-card">
-                <span class="countdown-value" id="cd-days">00</span>
-                <span class="countdown-label">Hari</span>
-            </div>
-            <div class="countdown-card">
-                <span class="countdown-value" id="cd-hours">00</span>
-                <span class="countdown-label">Jam</span>
-            </div>
-            <div class="countdown-card">
-                <span class="countdown-value" id="cd-minutes">00</span>
-                <span class="countdown-label">Menit</span>
-            </div>
-            <div class="countdown-card">
-                <span class="countdown-value" id="cd-seconds">00</span>
-                <span class="countdown-label">Detik</span>
-            </div>
-        </div>
-
-        <div class="animate-up delay-150" style="background: var(--white); padding: 16px 20px; border-radius: 16px; margin-top: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); text-align: center;">
-            <p style="font-weight: 600; color: var(--navy); font-size: 15px; margin-bottom: 4px;">
-                <i class="fa-solid fa-shirt" style="color: var(--sage); margin-right: 8px;"></i>
-                <span>Busana / Dresscode</span>
+            <p style="font-weight: 600; color: var(--navy); font-size: 15.5px; margin-top: 16px;">
+                <i class="fa-solid fa-map-location-dot" style="color: var(--sage); margin-right: 8px;"></i>
+                <span id="event-room"></span>
             </p>
-            <p id="protokol-pakaian-singkat" style="font-size: 14px; color: var(--slate); font-weight: 500; margin: 0;">
-                Bebas, Sopan, dan Rapi.
+            <p style="margin-top: 4px; font-size: 14px; padding-left: 24px; color: var(--slate);" id="event-building"></p>
+            <p style="font-size: 13px; padding-left: 24px; color: #64748b; font-style: italic; line-height: 1.4; margin-top: 2px;" id="event-address"></p>
+        </div>
+    </div>
+    
+    <div class="countdown-container animate-up delay-100">
+        <div class="countdown-card">
+            <span class="countdown-value" id="cd-days">00</span>
+            <span class="countdown-label">Hari</span>
+        </div>
+        <div class="countdown-card">
+            <span class="countdown-value" id="cd-hours">00</span>
+            <span class="countdown-label">Jam</span>
+        </div>
+        <div class="countdown-card">
+            <span class="countdown-value" id="cd-minutes">00</span>
+            <span class="countdown-label">Menit</span>
+        </div>
+        <div class="countdown-card">
+            <span class="countdown-value" id="cd-seconds">00</span>
+            <span class="countdown-label">Detik</span>
+        </div>
+    </div>
+
+    <div class="animate-up delay-150" style="background: var(--white); padding: 16px 20px; border-radius: 16px; margin-top: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); text-align: center;">
+        <p style="font-weight: 600; color: var(--navy); font-size: 15px; margin-bottom: 4px;">
+            <i class="fa-solid fa-shirt" style="color: var(--sage); margin-right: 8px;"></i>
+            <span>Busana / Dresscode</span>
+        </p>
+        <p id="protokol-pakaian-singkat" style="font-size: 14px; color: var(--slate); font-weight: 500; margin: 0;">
+            Bebas, Sopan, dan Rapi.
+        </p>
+    </div>
+
+    <div id="rsvp-section" class="animate-up delay-200" style="background: var(--white); padding: 20px; border-radius: 16px; margin-top: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); text-align: center;">
+        <span class="motto-tag">PENDAFTARAN</span>
+        <h2 class="shine-text" style="font-size: 20px; margin-top: 6px; margin-bottom: 8px;">Pendaftaran Kehadiran</h2>
+        
+        <p style="font-size: 13px; color: var(--slate); margin-top: 8px; margin-bottom: 18px; padding: 0 10px; line-height: 1.5;">
+            Silakan daftarkan kehadiran Bapak/Ibu melalui link di bawah ini, ya ⬇️
+        </p>
+
+        <a id="rsvp-link" href="https://docs.google.com/forms/d/1osEDkM8VRndGkT0N6l9BxgzAs0HDdYcSBpCN9g2vCsg/viewform?edit_requested=true" target="_blank" class="btn-action" style="background-color: var(--navy); color: var(--white); border: 1px solid var(--navy); font-size: 13px; padding: 14px 20px; border-radius: 12px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 15px rgba(11, 49, 91, 0.2); transition: all 0.3s ease;">
+            <i class="fa-solid fa-clipboard-check" style="color: var(--clay); font-size: 16px;"></i> Isi Form Pendaftaran
+        </a>
+
+        <div style="margin-top: 18px; background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 10px; padding: 10px 14px; display: inline-block;">
+            <p id="rsvp-deadline" style="font-size: 12px; color: #92400E; margin: 0; font-weight: 600;">
+                🗓️ RSVP paling lambat Kamis, 30 Juli 2026
             </p>
         </div>
+    </div>
 
-
-        <div class="animate-up">
-            <span class="motto-tag">PENDAFTARAN</span>
-            <h2 class="shine-text" style="font-size: 20px; margin-bottom: 8px;">Pendaftaran Kehadiran</h2>
-            
-            <p style="font-size: 13px; color: var(--slate); margin-top: 8px; margin-bottom: 18px; padding: 0 10px; line-height: 1.5;">
-                Silakan daftarkan kehadiran Bapak/Ibu melalui link di bawah ini, ya ⬇️
-            </p>
-
-            <a id="rsvp-link" href="https://docs.google.com/forms/d/1osEDkM8VRndGkT0N6l9BxgzAs0HDdYcSBpCN9g2vCsg/viewform?edit_requested=true" target="_blank" class="btn-action" style="background-color: var(--navy); color: var(--white); border: 1px solid var(--navy); font-size: 13px; padding: 14px 20px; border-radius: 12px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 15px rgba(11, 49, 91, 0.2); transition: all 0.3s ease;">
-                <i class="fa-solid fa-clipboard-check" style="color: var(--clay); font-size: 16px;"></i> Isi Form Pendaftaran
-            </a>
-
-            <div style="margin-top: 18px; background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 10px; padding: 10px 14px; display: inline-block;">
-                <p id="rsvp-deadline" style="font-size: 12px; color: #92400E; margin: 0; font-weight: 600;">
-                    🗓️ RSVP paling lambat Kamis, 30 Juli 2026
-                </p>
-            </div>
+    <div id="poster-section" style="margin-top:25px; display:none;" class="animate-up delay-200">
+        <div style="background:var(--white); border-radius:20px; box-shadow:0 10px 25px rgba(0,0,0,.03); padding:12px; border:1px solid rgba(141,160,130,.15); text-align:center;">
+            <img id="poster-image" src="" alt="Poster Acara Utama" style="width:100%; max-width:450px; height:auto; border-radius:12px; display:block; margin:auto;">
         </div>
-
-
-        
-        
-        <div id="poster-section" style="margin-top:25px; display:none;" class="animate-up delay-200">
-            <div style="background:var(--white); border-radius:20px; box-shadow:0 10px 25px rgba(0,0,0,.03); padding:12px; border:1px solid rgba(141,160,130,.15); text-align:center;">
-                <img id="poster-image" src="" alt="Poster Acara Utama" style="width:100%; max-width:450px; height:auto; border-radius:12px; display:block; margin:auto;">
-            </div>
-        </div>
-    </section>
+    </div>
+</section>
 
     <section>
         <div class="animate-up">
