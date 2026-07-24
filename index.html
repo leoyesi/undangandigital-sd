@@ -620,41 +620,43 @@ if (rsvpSection) {
     }
 }
 
-                // --- KONTROL SECTION MAP GOOGLE ---
-const mapSection = document.getElementById("map-section");
-mapLink = document.getElementById("map-link");
+               // --- KONTROL SECTION MAP GOOGLE ---
+function setupMapSection(data) {
+    const mapSection = document.getElementById("map-section");
+    const mapLink = document.getElementById("map-link"); // Pastikan pakai 'const'
 
-if (mapSection) {
-    // 1. Ambil data dari Google Sheets (mencakup kolom AR "Tampilkan Map" & "Link Map")
+    // Pastikan mapSection dan data ada
+    if (!mapSection || !data) return;
+
+    // 1. Ambil data dari Google Sheets (kolom 'Tampilkan Map' & 'Link Map')
     const rawStatus = data["Tampilkan Map"] || data["tampilkanMap"] || data["TampilkanMap"] || "";
     const rawLink = data["Link Map"] || data["linkMap"] || data["LinkMap"] || data["link_map"] || "";
 
     const statusMap = String(rawStatus).trim().toLowerCase();
     const linkMap = String(rawLink).trim();
 
-    // 2. Evaluasi Nilai "Ya" atau "Tidak"
+    // 2. Evaluasi Status
     const isExplicitShow = statusMap === "ya" || statusMap === "y" || statusMap === "true";
     const isExplicitHide = statusMap === "tidak" || statusMap === "t" || statusMap === "false" || linkMap.toLowerCase() === "tidak";
-    
-    // Pengecekan ketersediaan link valid
     const hasValidLink = linkMap !== "" && linkMap !== "undefined" && linkMap !== "null" && linkMap.toLowerCase() !== "tidak";
 
-    // 3. Logika Penayangan:
-    // Tampilkan jika (Status di-set "Ya") ATAU (Ada link valid DAN Status tidak di-set "Tidak")
-    if (isExplicitShow || (hasValidLink && !isExplicitHide)) {
-        mapSection.style.display = "block"; // Tampilkan kotak Map
+    // Debugging di Console
+    console.log("🔍 Status Map (AR):", statusMap, "| Link Map:", linkMap);
 
-        // Update link tombol jika link valid tersedia
+    // 3. Tampilkan / Sembunyikan
+    if (isExplicitShow || (hasValidLink && !isExplicitHide)) {
+        mapSection.style.display = "block";
+
         if (mapLink && hasValidLink) {
             mapLink.href = linkMap;
         }
     } else {
-        mapSection.style.display = "none"; // Sembunyikan jika bernilai "Tidak" / kosong
+        mapSection.style.display = "none";
     }
-
-    // 4. Cek hasil pembacaan data di Console Browser (Tekan F12 -> Console)
-    console.log("🔍 Debug Map -> Status (AR):", statusMap, "| Link:", linkMap);
 }
+
+// Panggil fungsi ini tepat setelah data dari Google Sheets berhasil diambil:
+// Contoh: setupMapSection(data);
                 
 
                 // Isi Rundown Acara
